@@ -1,0 +1,7 @@
+Repository:                RIOP ECAT App Glue
+
+Version:                   1.5.0
+Outgoing License:          LA_OPT_NXP_Software_License v63 May 2025 - No distribution permitted - Section 2.2 applies
+License File:              LICENSE.txt
+Description and comments:  EtherCAT Application Glue for the Remote IO Platform
+Origin:                    NXP (Proprietary)

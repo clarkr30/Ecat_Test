@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Projects/riop-ecat/**)",
+      "Bash(grep -rn \"goal_logInfo\\\\|GOAL_LOG\\\\|GOAL_CONFIG_LOG\" C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/appl/goal_ecat/riop/ --include=*.h)",
+      "Bash(arm-none-eabi-nm c:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/debug/riop_ECAT_M7FOLLOWER_cm7.elf)",
+      "Bash(find c:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M33LEADER/debug -name *.bin -o -name *.elf)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(p.get\\(''''name''''\\), p.get\\(''''binaryDir'''',''''''''\\)\\) for p in d.get\\(''''buildPresets'''', d.get\\(''''configurePresets'''',[]\\)\\)]\")",
+      "Bash(export SdkRootDirPath=/c/Projects/ICCTest/mcuxsdk)",
+      "Bash(cmake --build --preset=flexspi_nor_debug)",
+      "Bash(find . -maxdepth 2 -type f -name *.md -o -name *.json -o -name *.csproj -o -name *.sln)"
+    ]
+  }
+}

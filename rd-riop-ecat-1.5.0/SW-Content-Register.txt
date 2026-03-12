@@ -1,0 +1,9 @@
+Repository:                Remote IO Platform: ECAT Sample Application
+
+Version:                   1.5.0
+Outgoing License:          LA_OPT_Online Code Hosting NXP_Software_License - v1.4 May 2025
+License File:              LICENSE.txt
+Description and comments:  EtherCAT Sample Application for the Remote IO Platform
+Release Location:          https://github.com/nxp-appcodehub/rd-riop-ecat
+Origin:                    NXP (Proprietary)
+                           NAFE13388 Drivers - NXP (BSD-3-Clause) - riop_ECAT/M7FOLLOWER/source/NAFE_hw
