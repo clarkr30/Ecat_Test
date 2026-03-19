@@ -1,0 +1,37 @@
+PROGRAM MAIN
+VAR
+	// No mode variable needed - firmware hardcodes fsm_mode=5 (MCU output mode)
+
+	Delay: TON;
+
+	// MCU digital inputs (RGPIO6) -> TwinCAT reads these
+	input1 AT %I* : USINT;  // Input 1  (DIGITAL_INPUT_01, RGPIO6 pin 12, A11)
+	input2 AT %I* : USINT;  // Input 2  (DIGITAL_INPUT_02, RGPIO6 pin 8,  B14)
+
+	// LED readback -> TwinCAT reads this
+	ledIn  AT %I* : USINT;  // LED status echo
+
+	// MCU digital outputs (RGPIO2) -> TwinCAT writes these
+	output1 AT %Q* : USINT; // Output 1 (DIGITAL_OUTPUT_01, RGPIO2 pin 21, K4)
+	output2 AT %Q* : USINT; // Output 2 (DIGITAL_OUTPUT_02, RGPIO2 pin 22, L3)
+
+	// LED control -> TwinCAT writes this (non-zero = green blink, 0 = red blink)
+	ledOut  AT %Q* : USINT;
+END_VAR
+
+
+Delay(IN:=TRUE, PT:=T#1S);
+IF Delay.Q THEN
+	// Echo inputs back to outputs
+	output1 := input1;
+	output2 := input2;
+
+	// Toggle LED
+	IF ledIn = 0 THEN
+		ledOut := 1;
+	ELSE
+		ledOut := 0;
+	END_IF;
+
+	Delay(IN:=FALSE);
+END_IF;

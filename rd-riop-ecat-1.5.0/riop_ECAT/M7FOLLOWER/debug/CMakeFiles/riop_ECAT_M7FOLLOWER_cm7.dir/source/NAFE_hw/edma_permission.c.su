@@ -1,0 +1,3 @@
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/NAFE_hw/edma_permission.c:16:13:TRDC_EDMA3_ResetPermissions	24	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/NAFE_hw/edma_permission.c:68:13:TRDC_EDMA4_ResetPermissions	24	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/NAFE_hw/edma_permission.c:137:6:EDMA_SetPermission	24	static

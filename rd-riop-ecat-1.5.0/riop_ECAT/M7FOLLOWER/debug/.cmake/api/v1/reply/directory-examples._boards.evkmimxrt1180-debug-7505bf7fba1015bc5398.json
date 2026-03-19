@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "examples/_boards/evkmimxrt1180",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/examples/_boards/evkmimxrt1180"
+	}
+}

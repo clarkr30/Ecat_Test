@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/elemu",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/elemu"
+	}
+}

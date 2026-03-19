@@ -5,18 +5,9 @@
  * This application demonstrates the usage of the application callback function.
  *
  * @copyright
- * Copyright 2010-2025.
+ * Copyright 2010-2026.
  * This software is protected Intellectual Property and may only be used
  * according to the license agreement.
- *
- * Copyright 2025 NXP
- * NXP Confidential and Proprietary. This software is owned or controlled by NXP
- * and may only be used strictly in accordance with the applicable license
- * terms. By expressly accepting such terms or by downloading, installing,
- * activating and/or otherwise using the software, you are agreeing that you
- * have read, and that you agree to comply with and are bound by, such license
- * terms. If you do not agree to be bound by the applicable license terms, then
- * you may not retain, install, activate or otherwise use the software.
  */
 
 
@@ -25,12 +16,6 @@
 #include "goal_appl_ecat.h"
 #include "goal_appl_ecat_objects.h"
 
-#if RIOP
-#include "gl.h"
-
-#define MEMCPY memcpy
-#define SIZEOF sizeof
-#endif
 
 /****************************************************************************/
 /* Local defines */
@@ -276,83 +261,8 @@ static void appl_ecatPdoReceived(
 {
     UNUSEDARG(pHdlEcat);
 
-#if RIOP
+    /* nothing todo */
 
-    /* Copy data from master to slave*/
-        uint16_t * pi;
-        uint8_t * pii;
-        pi=&riop_command.afe_command.afe_gpio_command.gpio_output_value;
-#define ATOMIC_OP(var, XXX) if(var) *pi|=(uint16_t)XXX; else *pi&=~(uint16_t)XXX
-        ATOMIC_OP(di1_in, 0x0004);
-        ATOMIC_OP(di2_in, 0x0008);
-        ATOMIC_OP(di3_in, 0x0010);
-        ATOMIC_OP(di4_in, 0x0020);
-
-        ATOMIC_OP(di5_in, 0x0040);
-        ATOMIC_OP(di6_in, 0x0080);
-        ATOMIC_OP(di7_in, 0x0100);
-        ATOMIC_OP(di8_in, 0x0200);
-#undef ATOMIC_OP
-
-#define ATOMIC_OP(var, XXX) if(var) *pii|=(uint8_t)XXX; else *pii&=~(uint8_t)XXX
-        pii=&riop_command.mcu_digital_output_command.mcu_digital_output;
-        ATOMIC_OP(di17_in, 0x01);
-        ATOMIC_OP(di18_in, 0x02);
-        ATOMIC_OP(di19_in, 0x04);
-        ATOMIC_OP(di20_in, 0x08);
-
-        ATOMIC_OP(di21_in, 0x10);
-        ATOMIC_OP(di22_in, 0x20);
-        ATOMIC_OP(di23_in, 0x40);
-        ATOMIC_OP(di24_in, 0x80);
-#undef ATOMIC_OP
-
-#define ATOMIC_OP(var, XXX) if(var) riop_command.afe_command.afe_gpio_command.gpio_pin_direction |=XXX; \
-                else riop_command.afe_command.afe_gpio_command.gpio_pin_direction &=~(uint16_t)XXX;
-
-        ATOMIC_OP(di25_in, 0x0004);
-        ATOMIC_OP(di26_in, 0x0008);
-        ATOMIC_OP(di27_in, 0x0010);
-        ATOMIC_OP(di28_in, 0x0020);
-        ATOMIC_OP(di29_in, 0x0040);
-        ATOMIC_OP(di30_in, 0x0080);
-        ATOMIC_OP(di31_in, 0x0100);
-        ATOMIC_OP(di32_in, 0x0200);
-#undef ATOMIC_OP
-
-        //Mostly unused analog outputs.
-        MEMCPY(&LED_status,&led_in,SIZEOF(LED_status));
-        {
-                uint32_t tt;
-                MEMCPY( &fsm_mode, &adc1_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc2_in, SIZEOF(tt));
-        }
-        led_green = LED_status;
-
-        {
-                int32_t tt;
-                MEMCPY( &tt, &adc3_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc4_in, SIZEOF(tt));
-        }
-        {
-                float tt;
-                tt=0.0;
-                MEMCPY( &tt, &adc5_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc6_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc7_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc8_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc9_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc10_in, SIZEOF(tt));
-
-                MEMCPY( &tt, &adc11_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc12_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc13_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc14_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc15_in, SIZEOF(tt));
-                MEMCPY( &tt, &adc16_in, SIZEOF(tt));
-        }
-        
-#endif
 }
 
 
@@ -369,101 +279,8 @@ static void appl_ecatPdoTxPrepare(
 {
     UNUSEDARG(pHdlEcat);
 
-#if RIOP
+    /* nothing to do */
 
-        uint8_t di;
-        di=0;
-        uint16_t * pi;
-        uint8_t * pii;
-        pi=&g_boardStatus.afe_status.afe_gpio_input_pins_status;
-
-#define ATOMIC_OP(var, XXX) if(*pi&(uint16_t)XXX) var=1; else var=0
-        ATOMIC_OP(di1_out, 0x0004);
-        ATOMIC_OP(di2_out, 0x0008);
-        ATOMIC_OP(di3_out, 0x0010);
-        ATOMIC_OP(di4_out, 0x0020);
-
-        ATOMIC_OP(di5_out, 0x0040);
-        ATOMIC_OP(di6_out, 0x0080);
-        ATOMIC_OP(di7_out, 0x0100);
-        ATOMIC_OP(di8_out, 0x0200);
-#undef ATOMIC_OP
-
-#define ATOMIC_OP(var, XXX) if(*pii&(uint8_t)XXX) var=1; else var=0
-        pii=&g_boardStatus.mcu_digital_input_pins_status;
-        ATOMIC_OP(di9_out, 0x01);
-        ATOMIC_OP(di10_out, 0x02);
-        ATOMIC_OP(di11_out, 0x04);
-        ATOMIC_OP(di12_out, 0x08);
-
-        ATOMIC_OP(di13_out, 0x10);
-        ATOMIC_OP(di14_out, 0x20);
-        ATOMIC_OP(di15_out, 0x40);
-        MEMCPY(&di16_out, &di, SIZEOF(di));
-
-        pii=&g_boardStatus.mcu_digital_output_pins_status;
-        ATOMIC_OP(di17_out, 0x01);
-        ATOMIC_OP(di18_out, 0x02);
-        ATOMIC_OP(di19_out, 0x04);
-        ATOMIC_OP(di20_out, 0x08);
-
-        ATOMIC_OP(di21_out, 0x10);
-        ATOMIC_OP(di22_out, 0x20);
-        ATOMIC_OP(di23_out, 0x40);
-        ATOMIC_OP(di24_out, 0x80);
-
-#undef ATOMIC_OP
-	//NA di25-32
-        
-	//LED
-        MEMCPY(&led_out,&LED_status,SIZEOF(LED_status));
-        {
-                uint32_t tt;
-                tt=(adc_1);
-                MEMCPY(&adc1_out, &tt, SIZEOF(tt));
-                MEMCPY(&adc2_out, &adc_1, SIZEOF(adc_1));
-        }
-        {
-                int32_t tt;
-                tt=(adc_1);
-                tt=-tt;
-                MEMCPY(&adc3_out, &tt, SIZEOF(tt));
-                MEMCPY(&adc4_out, &tt, SIZEOF(tt));
-        }
-        {
-                float * pf;
-                float tt;
-                tt=(adc_1);
-                pf=&(g_boardStatus.afe_status.hvsig_status.channel_value[0]);
-                tt=*pf++;
-                MEMCPY(&adc5_out, &tt, SIZEOF(tt));
-                tt=*pf++;
-                MEMCPY(&adc6_out, &tt, SIZEOF(tt));
-                tt=*pf++;
-                MEMCPY(&adc7_out, &tt, SIZEOF(tt));
-                pf=&(g_boardStatus.afe_status.current_status.channel_value);
-                tt=*pf++;
-                MEMCPY(&adc8_out, &tt, SIZEOF(tt));
-                pf=&(g_boardStatus.afe_status.lvsig_status.channel_mean[0]);
-                tt=*pf++;
-                MEMCPY(&adc9_out, &tt, SIZEOF(tt));
-                tt=*pf++;
-                MEMCPY(&adc10_out, &tt, SIZEOF(tt));
-                tt=*pf++;
-
-                MEMCPY(&adc11_out, &tt, SIZEOF(tt));
-                tt=*pf++;
-                MEMCPY(&adc12_out, &tt, SIZEOF(tt));
-                tt=*pf++;
-                MEMCPY(&adc13_out, &tt, SIZEOF(tt)); //#13
-
-                pf=&(g_boardStatus.afe_status.temperature_status.channel_value);
-                tt=*pf++;
-                MEMCPY(&adc14_out, &tt, SIZEOF(tt)); //#14
-                MEMCPY(&adc15_out, &tt, SIZEOF(tt)); //#15
-                MEMCPY(&adc16_out, &tt, SIZEOF(tt)); //#16
-        }
-#endif
 }
 
 

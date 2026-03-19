@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/key_manager",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/key_manager"
+	}
+}

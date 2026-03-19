@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "devices/RT/RT1180/MIMXRT1189",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/devices/RT/RT1180/MIMXRT1189"
+	}
+}

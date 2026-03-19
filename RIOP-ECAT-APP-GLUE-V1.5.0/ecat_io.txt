@@ -1,0 +1,123 @@
+1000:
+Device Type
+
+
+The device type specifies the kind of device.
+The lower 16 bit contain the device profile number and
+the upper 16 bit an additional information.
+1001:
+Error Register
+
+
+The error register is a field of 8 bits, each for a certain error type. If an error occurs the bit has to be set.
+
+    Bit Meaning
+    0  generic error
+    1  current
+    2  voltage
+    3  temperature
+    4  communication error (overrun, error state)
+    5  device profile specific
+    6  reserved
+    7  manufacturer specific
+1018:
+Identity Object
+
+
+This object contains general information about the
+    device.
+    Sub-Index 1 contains a unique value allocated each manufacturer.
+    Sub-Index 2 identifies the manufacturer specific product code (device version).
+    Sub-Index 3 contains the revision number.
+    Bit 31-16 is the major revision number and Bit 15-0 the minor revision number.
+    Sub-Index 4 identifies a manufacturer specific serial number.
+10F1:
+Error Settings
+
+
+
+10F8:
+Timestamp Object
+
+
+
+1600:
+Receive PDO Mapping Parameter 1
+
+
+The sub-indices contain the indices, the sub-indices and the
+lengths of the mapped sub-indices.
+
+Their structure is as follows:
+index (16bit)   sub-index (8bit)   length (8bit)
+1A00:
+Obj0x1A00
+
+
+Contains the mapping for the PDOs the device is able to transmit.
+The type of the PDO mapping parameter is at index 21h.
+The subindex 0h contains the number of valid entires within the mapping record.
+This number of entries is also the number of the application variables
+which shall be transmitted with the corresponding PDO.
+The subindicex from 1h to number of entries contain the information about
+the mapped application variables.
+These entries describe the PDO contents by their index, subindex and length.
+All three values are hexa-decimal coded.
+The length entry contains the length of the object in bits (1..40h).
+This parameter can be used to verify the overall mapping length. It is mandatory.
+1C00:
+Sync Manager Communication Type
+
+
+Up to 32 Sync Manager types can be specified.
+The predefined Sync Manager configuration is:
+0 unused
+1 mailbox receive
+2 mailbox send
+3 process data output
+4 process data input.
+1C12:
+Sync Manager 2 PDO Assignment
+
+
+This object assigns PDO mapping objects to Sync Manager.
+1C13:
+Sync Manager 3 PDO Assignment
+
+
+This object assigns PDO mapping objects to Sync Manager.
+1C32:
+Sync Manager 2 Synchronization
+
+
+This object configures the synchronization properties of the Sync Manager according to ETG 1012.
+1C33:
+Sync Manager 3 Synchronization
+
+
+This object configures the synchronization properties of the Sync Manager according to ETG 1012.
+6010:
+Obj0x6010
+
+
+
+6020:
+Obj0x6020
+
+
+
+7000:
+Obj0x7000
+
+
+
+7010:
+Obj0x7010
+
+
+
+F000:
+Obj0xF000
+
+
+

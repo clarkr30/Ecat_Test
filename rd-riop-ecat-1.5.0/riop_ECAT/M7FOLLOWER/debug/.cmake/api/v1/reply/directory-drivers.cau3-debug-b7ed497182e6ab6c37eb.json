@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/cau3",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/cau3"
+	}
+}

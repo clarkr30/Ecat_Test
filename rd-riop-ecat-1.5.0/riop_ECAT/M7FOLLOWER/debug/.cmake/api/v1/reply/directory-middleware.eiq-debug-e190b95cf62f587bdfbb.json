@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "middleware/eiq",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/middleware/eiq"
+	}
+}

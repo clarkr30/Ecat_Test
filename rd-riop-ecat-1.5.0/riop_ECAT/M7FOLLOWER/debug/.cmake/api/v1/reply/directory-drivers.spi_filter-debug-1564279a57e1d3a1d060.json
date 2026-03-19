@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/spi_filter",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/spi_filter"
+	}
+}

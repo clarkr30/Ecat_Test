@@ -1,0 +1,6 @@
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/devices/RT/RT1180/MIMXRT1189/drivers/fsl_clock.h:1474:24:CLOCK_GetRootClockMux	16	static
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/devices/RT/RT1180/MIMXRT1189/drivers/fsl_clock.h:1515:24:CLOCK_GetRootClockDiv	16	static
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/devices/RT/RT1180/MIMXRT1189/drivers/fsl_clock.h:1634:24:CLOCK_GetRootClockFreq	32	static
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/lpit/fsl_lpit.h:396:13:LPIT_ResetStateDelay	4	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/riop_ECAT_M7FOLLOWER.c:79:5:BOARD_InitHardware	8	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/riop_ECAT_M7FOLLOWER.c:93:5:riop_appl_init	16	static

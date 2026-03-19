@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "middleware/littlefs",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/middleware/littlefs"
+	}
+}

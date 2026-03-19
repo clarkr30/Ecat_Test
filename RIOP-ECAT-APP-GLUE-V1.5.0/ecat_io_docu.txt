@@ -1,0 +1,1535 @@
+
+ecat_io Documentation
+- 03-18-2026 - 12:01PM -
+
+
+p
+
+- - - - - - - - Object Description - - - - - - - - - -
+-------------------------------------------------------
+
+============ Line 0 ============
+
+Summary of line 0:
+---------------------------------------------------------------------------
+1000	Device Type
+1001	Error Register
+1018	Identity Object
+10F1	Error Settings
+10F8	Timestamp Object
+1600	Receive PDO Mapping Parameter 1
+1A00	Obj0x1A00
+1C00	Sync Manager Communication Type
+1C12	Sync Manager 2 PDO Assignment
+1C13	Sync Manager 3 PDO Assignment
+1C32	Sync Manager 2 Synchronization
+1C33	Sync Manager 3 Synchronization
+6010	Obj0x6010
+6020	Obj0x6020
+7000	Obj0x7000
+7010	Obj0x7010
+F000	Obj0xF000
+
+
+Communication Segment
+
+
+Variable - 1000 - Device Type:
+---------------------------------------------------------------------------
+The device type specifies the kind of device.
+
+The lower 16 bit contain the device profile number and
+
+the upper 16 bit an additional information.
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1389     0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+
+
+Variable - 1001 - Error Register:
+---------------------------------------------------------------------------
+The error register is a field of 8 bits, each for a certain error type. If an error occurs the bit has to be set.
+
+
+
+    Bit Meaning
+
+    0  generic error
+
+    1  current
+
+    2  voltage
+
+    3  temperature
+
+    4  communication error (overrun, error state)
+
+    5  device profile specific
+
+    6  reserved
+
+    7  manufacturer specific
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	no
+
+
+
+Record - 1018 - Identity Object:
+---------------------------------------------------------------------------
+This object contains general information about the
+
+    device.
+
+    Sub-Index 1 contains a unique value allocated each manufacturer.
+
+    Sub-Index 2 identifies the manufacturer specific product code (device version).
+
+    Sub-Index 3 contains the revision number.
+
+    Bit 31-16 is the major revision number and Bit 15-0 the minor revision number.
+
+    Sub-Index 4 identifies a manufacturer specific serial number.
+1018:000 number of entries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x4        0x1        0x4        	u8	RO/RO/RO	no
+
+1018:001 Vendor Id
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0xCC2      0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1018:002 Product Code
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1018:003 Revision number
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x11       0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1018:004 Serial number
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+
+
+Record - 10F1 - Error Settings:
+---------------------------------------------------------------------------
+
+10F1:000 SubIndex 000
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x2        0x0        0xFF       	u8	RO/RO/RO	no
+
+10F1:001 Local Error Reaction
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+10F1:002 Sync Error Counter Limit
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x4        0x0        0xFFFF     	u16	RW/RW/RW	no
+
+
+
+Variable - 10F8 - Timestamp Object:
+---------------------------------------------------------------------------
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFFFFFFFFFF 	u64	RW/RW/RW	TxPDO
+
+
+
+Record - 1600 - Receive PDO Mapping Parameter 1:
+---------------------------------------------------------------------------
+The sub-indices contain the indices, the sub-indices and the
+
+lengths of the mapped sub-indices.
+
+
+
+Their structure is as follows:
+
+index (16bit)   sub-index (8bit)   length (8bit)
+1600:000 Number of Entries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x31       0x0        0xFF       	u8	RO/RO/RO	no
+
+1600:001 Mapping Entry 1
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000108 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:002 Mapping Entry 2
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000208 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:003 Mapping Entry 3
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000308 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:004 Mapping Entry 4
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000408 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:005 Mapping Entry 5
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000508 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:006 Mapping Entry 6
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000608 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:007 Mapping Entry 7
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000708 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:008 Mapping Entry 8
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000808 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:009 Mapping Entry 9
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000908 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:010 Mapping Entry 10
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000A08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:011 Mapping Entry 11
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000B08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:012 Mapping Entry 12
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000C08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:013 Mapping Entry 13
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000D08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:014 Mapping Entry 14
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000E08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:015 Mapping Entry 15
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70000F08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:016 Mapping Entry 16
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001008 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:017 Mapping Entry 17
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001108 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:018 Mapping Entry 18
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001208 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:019 Mapping Entry 19
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001308 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:020 Mapping Entry 20
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001408 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:021 Mapping Entry 21
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001508 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:022 Mapping Entry 22
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001608 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:023 Mapping Entry 23
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001708 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:024 Mapping Entry 24
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001808 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:025 Mapping Entry 25
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001908 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:026 Mapping Entry 26
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001A08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:027 Mapping Entry 27
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001B08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:028 Mapping Entry 28
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001C08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:029 Mapping Entry 29
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001D08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:030 Mapping Entry 30
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001E08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:031 Mapping Entry 31
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70001F08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:032 Mapping Entry 32
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70002008 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:033 Mapping Entry 33
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70002108 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:034 Mapping Entry 34
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100120 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:035 Mapping Entry 35
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100220 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:036 Mapping Entry 36
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100320 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:037 Mapping Entry 37
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100420 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:038 Mapping Entry 38
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100520 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:039 Mapping Entry 39
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100620 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:040 Mapping Entry 40
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100720 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:041 Mapping Entry 41
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100820 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:042 Mapping Entry 42
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100920 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:043 Mapping Entry 43
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100A20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:044 Mapping Entry 44
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100B20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:045 Mapping Entry 45
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100C20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:046 Mapping Entry 46
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100D20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:047 Mapping Entry 47
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100E20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:048 Mapping Entry 48
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70100F20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1600:049 Mapping Entry 49
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x70101020 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+
+
+Record - 1A00 - Obj0x1A00:
+---------------------------------------------------------------------------
+Contains the mapping for the PDOs the device is able to transmit.
+
+The type of the PDO mapping parameter is at index 21h.
+
+The subindex 0h contains the number of valid entires within the mapping record.
+
+This number of entries is also the number of the application variables
+
+which shall be transmitted with the corresponding PDO.
+
+The subindicex from 1h to number of entries contain the information about
+
+the mapped application variables.
+
+These entries describe the PDO contents by their index, subindex and length.
+
+All three values are hexa-decimal coded.
+
+The length entry contains the length of the object in bits (1..40h).
+
+This parameter can be used to verify the overall mapping length. It is mandatory.
+1A00:000 Number of Entries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x31       0x0        0xFF       	u8	RO/RO/RO	no
+
+1A00:001 Mapping Entry 1
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100108 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:002 Mapping Entry 2
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100208 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:003 Mapping Entry 3
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100308 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:004 Mapping Entry 4
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100408 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:005 Mapping Entry 5
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100508 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:006 Mapping Entry 6
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100608 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:007 Mapping Entry 7
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100708 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:008 Mapping Entry 8
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100808 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:009 Mapping Entry 9
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100908 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:010 Mapping Entry 10
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100A08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:011 Mapping Entry 11
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100B08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:012 Mapping Entry 12
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100C08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:013 Mapping Entry 13
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100D08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:014 Mapping Entry 14
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100E08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:015 Mapping Entry 15
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60100F08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:016 Mapping Entry 16
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101008 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:017 Mapping Entry 17
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101108 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:018 Mapping Entry 18
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101208 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:019 Mapping Entry 19
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101308 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:020 Mapping Entry 20
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101408 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:021 Mapping Entry 21
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101508 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:022 Mapping Entry 22
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101608 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:023 Mapping Entry 23
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101708 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:024 Mapping Entry 24
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101808 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:025 Mapping Entry 25
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101908 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:026 Mapping Entry 26
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101A08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:027 Mapping Entry 27
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101B08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:028 Mapping Entry 28
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101C08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:029 Mapping Entry 29
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101D08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:030 Mapping Entry 30
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101E08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:031 Mapping Entry 31
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60101F08 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:032 Mapping Entry 32
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60102008 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:033 Mapping Entry 33
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60102108 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:034 Mapping Entry 34
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200120 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:035 Mapping Entry 35
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200220 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:036 Mapping Entry 36
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200320 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:037 Mapping Entry 37
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200420 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:038 Mapping Entry 38
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200520 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:039 Mapping Entry 39
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200620 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:040 Mapping Entry 40
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200720 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:041 Mapping Entry 41
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200820 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:042 Mapping Entry 42
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200920 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:043 Mapping Entry 43
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200A20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:044 Mapping Entry 44
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200B20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:045 Mapping Entry 45
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200C20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:046 Mapping Entry 46
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200D20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:047 Mapping Entry 47
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200E20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:048 Mapping Entry 48
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60200F20 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1A00:049 Mapping Entry 49
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x60201020 0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+
+
+Array - 1C00 - Sync Manager Communication Type:
+---------------------------------------------------------------------------
+Up to 32 Sync Manager types can be specified.
+
+The predefined Sync Manager configuration is:
+
+0 unused
+
+1 mailbox receive
+
+2 mailbox send
+
+3 process data output
+
+4 process data input.
+1C00:000 Number of used Sync Managers
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x4        0x4        0x5        	u8	RO/RO/RO	no
+
+1C00:001 Sync Manager  Communication Type
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0x4        	u8	RO/RO/RO	no
+
+1C00:002 Sync Manager  Communication Type
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x2        0x0        0x4        	u8	RO/RO/RO	no
+
+1C00:003 Sync Manager  Communication Type
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x3        0x0        0x4        	u8	RO/RO/RO	no
+
+1C00:004 Sync Manager  Communication Type
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x4        0x0        0x4        	u8	RO/RO/RO	no
+
+
+
+Array - 1C12 - Sync Manager 2 PDO Assignment:
+---------------------------------------------------------------------------
+This object assigns PDO mapping objects to Sync Manager.
+1C12:000 Number of assigned PDOs
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0xFF       	u8	RO/RO/RO	no
+
+1C12:001 PDO Mapping index of assigned PDOs
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1600     0x1600     0x1BFF     	u16	RO/RO/RO	no
+
+
+
+Array - 1C13 - Sync Manager 3 PDO Assignment:
+---------------------------------------------------------------------------
+This object assigns PDO mapping objects to Sync Manager.
+1C13:000 Number of assigned PDOs
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0xFF       	u8	RO/RO/RO	no
+
+1C13:001 PDO Mapping index of assigned PDOs
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1A00     0x1600     0x1BFF     	u16	RO/RO/RO	no
+
+
+
+Record - 1C32 - Sync Manager 2 Synchronization:
+---------------------------------------------------------------------------
+This object configures the synchronization properties of the Sync Manager according to ETG 1012.
+1C32:000 Number of Synchronization Parameters
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x20       0x1        0x20       	u8	RO/RO/RO	no
+
+1C32:001 Synchronization Type
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0x3F       	u16	RW/RW/RW	no
+
+1C32:002 Cycle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RW/RW/RW	no
+
+1C32:003 Shift Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RW/RW/RW	no
+
+1C32:004 Synchronization Types Supported
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x7        0x0        0x7FFF     	u16	RO/RO/RO	no
+
+1C32:005 Minimum Cycle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x79E0     0x0        0xFFFFFFFF ns	u32	RO/RO/RO	no
+
+1C32:006 Calc and Copy Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C32:007 Minimum Delay Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C32:008 Get Cycle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0x3        	u16	RW/RW/RW	no
+
+1C32:009 Delay Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C32:010 Sync0 Cycle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RW/RW/RW	no
+
+1C32:011 SM-Event Missed
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C32:012 Cycle Time Too Small
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C32:013 Shift Time Too Short
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C32:014 RxPDO Toggle Failed
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C32:015 Minimum Cycle Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RO/RO/RO	no
+
+1C32:016 Maximum Cycle Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RO/RO/RO	no
+
+1C32:017 Minimum SM Sync Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RO/RO/RO	no
+
+1C32:018 Maximum SM Sync Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RO/RO/RO	no
+
+1C32:032 Sync Error
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0x1        	bool	RO/RO/RO	no
+
+
+
+Record - 1C33 - Sync Manager 3 Synchronization:
+---------------------------------------------------------------------------
+This object configures the synchronization properties of the Sync Manager according to ETG 1012.
+1C33:000 Number of Synchronization Parameters
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x20       0x1        0x20       	u8	RO/RO/RO	no
+
+1C33:001 Synchronization Type
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x22       0x0        0x3F       	u16	RW/RW/RW	no
+
+1C33:002 Cycle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RO/RO/RO	no
+
+1C33:003 Shift Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF ns	u32	RW/RW/RW	no
+
+1C33:004 Synchronization Types Supported
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x7        0x0        0x7FFF     	u16	RO/RO/RO	no
+
+1C33:005 Minimum Cycle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x79E0     0x0        0xFFFFFFFF ns	u32	RO/RO/RO	no
+
+1C33:006 Calc and Copy Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:007 Minimum Delay Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:008 Get Cycle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RW/RW/RW	no
+
+1C33:009 Delay Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:010 Sync0 Cyle Time
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:011 SM-Event Missed
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C33:012 Cycle Time Too Small
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C33:013 Shift Time Too Short
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C33:014 RxPDO Toggle Failed
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+1C33:015 Minimum Cycle Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:016 Maximum Cycle Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:017 Minimum SM Sync Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:018 Maximum SM Sync Distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	no
+
+1C33:032 Sync Error
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0x1        	bool	RO/RO/RO	no
+
+
+Device Profile Segment
+
+
+Record - 6010 - Obj0x6010:
+---------------------------------------------------------------------------
+
+6010:000 numOfEntries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x21       0x0        0xFF       	u8	RO/RO/RO	no
+
+6010:001 di1
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RW	TxPDO
+
+6010:002 di2
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:003 di3
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:004 di4
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:005 di5
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:006 di6
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:007 di7
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:008 di8
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:009 di9
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:010 di10
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:011 di11
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:012 di12
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:013 di13
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:014 di14
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:015 di15
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:016 di16
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:017 di17
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:018 di18
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:019 di19
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:020 di20
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:021 di21
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:022 di22
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:023 di23
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:024 di24
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:025 di25
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:026 di26
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:027 di27
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:028 di28
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:029 di29
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:030 di30
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:031 di31
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:032 di32
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+6010:033 led
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0xFF       	u8	RO/RO/RO	TxPDO
+
+
+
+Record - 6020 - Obj0x6020:
+---------------------------------------------------------------------------
+
+6020:000 numOfEntries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x10       0x0        0xFF       	u8	RO/RO/RO	no
+
+6020:001 adc1
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	TxPDO
+
+6020:002 adc2
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RO/RO/RO	TxPDO
+
+6020:003 adc3
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x80000000 0x7FFFFFFF 	i32	RO/RO/RO	TxPDO
+
+6020:004 adc4
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x80000000 0x7FFFFFFF 	i32	RO/RO/RO	TxPDO
+
+6020:005 adc5
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:006 adc6
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:007 adc7
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:008 adc8
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:009 adc9
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:010 adc10
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:011 adc11
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:012 adc12
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:013 adc13
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:014 adc14
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:015 adc15
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+6020:016 adc16
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RO/RO/RO	TxPDO
+
+
+
+Record - 7000 - Obj0x7000:
+---------------------------------------------------------------------------
+
+7000:000 numOfEntries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x21       0x0        0xFF       	u8	RO/RO/RO	no
+
+7000:001 di1
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:002 di2
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:003 di3
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:004 di4
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:005 di5
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:006 di6
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:007 di7
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:008 di8
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:009 di9
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:010 di10
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:011 di11
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:012 di12
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:013 di13
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:014 di14
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:015 di15
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:016 di16
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:017 di17
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:018 di18
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:019 di19
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:020 di20
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:021 di21
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:022 di22
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:023 di23
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:024 di24
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:025 di25
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:026 di26
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:027 di27
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:028 di28
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:029 di29
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:030 di30
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:031 di31
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:032 di32
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+7000:033 led
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x1        0x0        0xFF       	u8	RW/RW/RW	RxPDO
+
+
+
+Record - 7010 - Obj0x7010:
+---------------------------------------------------------------------------
+
+7010:000 numOfEntries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x10       0x0        0xFF       	u8	RO/RO/RO	no
+
+7010:001 adc1
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RW/RW/RW	RxPDO
+
+7010:002 adc2
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFFFFFF 	u32	RW/RW/RW	RxPDO
+
+7010:003 adc3
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x80000000 0x7FFFFFFF 	i32	RW/RW/RW	RxPDO
+
+7010:004 adc4
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x80000000 0x7FFFFFFF 	i32	RW/RW/RW	RxPDO
+
+7010:005 adc5
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:006 adc6
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:007 adc7
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:008 adc8
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:009 adc9
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:010 adc10
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:011 adc11
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:012 adc12
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:013 adc13
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:014 adc14
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:015 adc15
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+7010:016 adc16
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0xFF7FFFFF 0x7F7FFFFF 	r32	RW/RW/RW	RxPDO
+
+
+Device Profile Segment 2
+
+
+Record - F000 - Obj0xF000:
+---------------------------------------------------------------------------
+
+F000:000 numOfEntries
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x2        0x0        0xFF       	u8	RO/RO/RO	no
+
+F000:001 Index distance
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x10       0x0        0xFFFF     	u16	RO/RO/RO	no
+
+F000:002 Maximum number of modules
+
+Value      Min         Max         Unit	Type	Access(PreOp/SafeOp/Op)	Mapping
+0x0        0x0        0xFFFF     	u16	RO/RO/RO	no
+
+
+
+-- Abbreviations --
+
+
+bool		BOOLEAN
+i32		INTEGER32
+u8		UNSIGNED8
+u16		UNSIGNED16
+u32		UNSIGNED32
+r32		REAL32
+u64		UNSIGNED64
+
+
+
+
+This document was created using Industrial Communication Creator 7.6.0.202512051012 by port GmbH

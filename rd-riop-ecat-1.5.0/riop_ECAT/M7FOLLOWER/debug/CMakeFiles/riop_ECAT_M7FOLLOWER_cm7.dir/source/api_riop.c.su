@@ -1,0 +1,12 @@
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/lpit/fsl_lpit.h:396:13:LPIT_ResetStateDelay	4	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:60:6:RIOP_StatusShmInit	4	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:65:15:RIOP_SetMcuDigitalInputPinsStatus	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:76:15:RIOP_SetMcuDigitalOutputPinsStatus	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:87:15:RIOP_SetAfeDigitalInputPinsStatus	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:98:15:RIOP_SetAfeDigitalGpioSettingsStatus	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:115:15:RIOP_SetSiggenStatus	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:133:15:RIOP_SetCalPhase	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:144:15:RIOP_SetCalibrationStatus	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:156:15:RIOP_GetBoardStatusForICC	80	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:201:13:RIOP_LockMutex	16	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/api_riop.c:206:13:RIOP_UnlockMutex	16	static

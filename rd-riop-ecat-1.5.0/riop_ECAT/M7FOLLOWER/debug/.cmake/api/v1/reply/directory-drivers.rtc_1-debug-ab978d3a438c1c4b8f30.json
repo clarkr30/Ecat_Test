@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/rtc_1",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/rtc_1"
+	}
+}

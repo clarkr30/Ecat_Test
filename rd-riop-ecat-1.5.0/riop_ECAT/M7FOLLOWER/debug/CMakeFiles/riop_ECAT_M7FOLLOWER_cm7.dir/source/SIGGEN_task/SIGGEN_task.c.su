@@ -1,0 +1,4 @@
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/pwm/fsl_pwm.h:1206:20:PWM_SetPwmLdok	16	static
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/lpit/fsl_lpit.h:396:13:LPIT_ResetStateDelay	4	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/SIGGEN_task/SIGGEN_task.c:32:6:SIGGEN_timerCallback	40	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/SIGGEN_task/SIGGEN_task.c:103:6:SIGGEN_ControlTask	40	static

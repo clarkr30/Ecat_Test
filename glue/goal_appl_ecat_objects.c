@@ -26,6 +26,12 @@
 /****************************************************************************/
 /* Global variables */
 /****************************************************************************/
+uint8_t di1_out;                                /**< 0x6010:0x01 Input 1 */
+uint8_t di2_out;                                /**< 0x6010:0x02 Input 2 */
+uint8_t led_out;                                /**< 0x6010:0x03 led */
+uint8_t di1_in;                                 /**< 0x7000:0x01 Output 1 */
+uint8_t di2_in;                                 /**< 0x7000:0x02 Output 2 */
+uint8_t led_in;                                 /**< 0x7000:0x03 led */
 
 
 /****************************************************************************/
@@ -74,7 +80,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     if (GOAL_RES_OK(res)) {
 
         uint32ValueMin = 0x00000000;
-        uint32ValueDef = 0x00000191;
+        uint32ValueDef = 0x00001389;
         uint32ValueMax = 0xFFFFFFFF;
 
         res = goal_ecatdynOdSubIndexAdd(
@@ -116,7 +122,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
             0x1001,
             0x00,
             GOAL_ECAT_DATATYPE_UNSIGNED8,
-            EC_OBJATTR_RD | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_DFLT | EC_OBJATTR_NO_LIMITS,
+            EC_OBJATTR_RD | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint8ValueDef,
             (uint8_t *) &uint8ValueMin,
             (uint8_t *) &uint8ValueMax,
@@ -153,7 +159,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
             0x1018,
             0x00,
             GOAL_ECAT_DATATYPE_UNSIGNED8,
-            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint8ValueDef,
             (uint8_t *) &uint8ValueMin,
             (uint8_t *) &uint8ValueMax,
@@ -171,7 +177,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     if (GOAL_RES_OK(res)) {
 
         uint32ValueMin = 0x00000000;
-        uint32ValueDef = 0x0000E778;
+        uint32ValueDef = 0x00000CC2;
         uint32ValueMax = 0xFFFFFFFF;
 
         res = goal_ecatdynOdSubIndexAdd(
@@ -197,7 +203,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     if (GOAL_RES_OK(res)) {
 
         uint32ValueMin = 0x00000000;
-        uint32ValueDef = 0x00000067;
+        uint32ValueDef = 0x00000001;
         uint32ValueMax = 0xFFFFFFFF;
 
         res = goal_ecatdynOdSubIndexAdd(
@@ -223,7 +229,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     if (GOAL_RES_OK(res)) {
 
         uint32ValueMin = 0x00000000;
-        uint32ValueDef = 0x00000068;
+        uint32ValueDef = 0x00000011;
         uint32ValueMax = 0xFFFFFFFF;
 
         res = goal_ecatdynOdSubIndexAdd(
@@ -231,7 +237,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
             0x1018,
             0x03,
             GOAL_ECAT_DATATYPE_UNSIGNED32,
-            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_DFLT | EC_OBJATTR_NO_LIMITS,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint32ValueDef,
             (uint8_t *) &uint32ValueMin,
             (uint8_t *) &uint32ValueMax,
@@ -249,7 +255,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     if (GOAL_RES_OK(res)) {
 
         uint32ValueMin = 0x00000000;
-        uint32ValueDef = 0x00000069;
+        uint32ValueDef = 0x00000000;
         uint32ValueMax = 0xFFFFFFFF;
 
         res = goal_ecatdynOdSubIndexAdd(
@@ -257,7 +263,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
             0x1018,
             0x04,
             GOAL_ECAT_DATATYPE_UNSIGNED32,
-            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_DFLT | EC_OBJATTR_NO_LIMITS,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint32ValueDef,
             (uint8_t *) &uint32ValueMin,
             (uint8_t *) &uint32ValueMax,
@@ -284,57 +290,41 @@ GOAL_STATUS_T appl_ecatCreateObjects(
         res = goal_ecatdynOdObjNameAdd(pHdlEcat, 0x1600, "Receive PDO Mapping Parameter 1");
     }
 
-    /************************************************/
-    /* 0x1600:0x00 Number of Entries               */
-    /************************************************/
+    /* 0x1600:0x00 Number of Entries = 3 */
     if (GOAL_RES_OK(res)) {
-
-        uint8ValueMin = 0x00;
-        uint8ValueDef = 0x01;
-        uint8ValueMax = 0xFF;
-
-        res = goal_ecatdynOdSubIndexAdd(
-            pHdlEcat,
-            0x1600,
-            0x00,
-            GOAL_ECAT_DATATYPE_UNSIGNED8,
+        uint8ValueMin = 0x00; uint8ValueDef = 0x03; uint8ValueMax = 0xFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1600, 0x00, GOAL_ECAT_DATATYPE_UNSIGNED8,
             EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC,
-            (uint8_t *) &uint8ValueDef,
-            (uint8_t *) &uint8ValueMin,
-            (uint8_t *) &uint8ValueMax,
-            1,
-            NULL);
+            (uint8_t *) &uint8ValueDef, (uint8_t *) &uint8ValueMin, (uint8_t *) &uint8ValueMax, 1, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1600, 0x00, "Number of Entries"); }
 
+    /* 0x1600:0x01 -> 0x7000:01 Output 1, 8 bit */
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1600, 0x00, "Number of Entries");
+        uint32ValueMin = 0x00000000; uint32ValueDef = 0x70000108; uint32ValueMax = 0xFFFFFFFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1600, 0x01, GOAL_ECAT_DATATYPE_UNSIGNED32,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint32ValueDef, (uint8_t *) &uint32ValueMin, (uint8_t *) &uint32ValueMax, 4, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1600, 0x01, "Mapping Entry 1"); }
 
-    /************************************************/
-    /* 0x1600:0x01 Mapping Entry 1                 */
-    /************************************************/
+    /* 0x1600:0x02 -> 0x7000:02 Output 2, 8 bit */
     if (GOAL_RES_OK(res)) {
-
-        uint32ValueMin = 0x00000000;
-        uint32ValueDef = 0x00000000;
-        uint32ValueMax = 0xFFFFFFFF;
-
-        res = goal_ecatdynOdSubIndexAdd(
-            pHdlEcat,
-            0x1600,
-            0x01,
-            GOAL_ECAT_DATATYPE_UNSIGNED32,
-            EC_OBJATTR_RD | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
-            (uint8_t *) &uint32ValueDef,
-            (uint8_t *) &uint32ValueMin,
-            (uint8_t *) &uint32ValueMax,
-            4,
-            NULL);
+        uint32ValueMin = 0x00000000; uint32ValueDef = 0x70000208; uint32ValueMax = 0xFFFFFFFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1600, 0x02, GOAL_ECAT_DATATYPE_UNSIGNED32,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint32ValueDef, (uint8_t *) &uint32ValueMin, (uint8_t *) &uint32ValueMax, 4, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1600, 0x02, "Mapping Entry 2"); }
 
+    /* 0x1600:0x03 -> 0x7000:03 led, 8 bit */
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1600, 0x01, "Mapping Entry 1");
+        uint32ValueMin = 0x00000000; uint32ValueDef = 0x70000308; uint32ValueMax = 0xFFFFFFFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1600, 0x03, GOAL_ECAT_DATATYPE_UNSIGNED32,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint32ValueDef, (uint8_t *) &uint32ValueMin, (uint8_t *) &uint32ValueMax, 4, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1600, 0x03, "Mapping Entry 3"); }
 
     if (GOAL_RES_ERR(res)) {
         goal_logErr("failed to create object 0x1600");
@@ -351,57 +341,41 @@ GOAL_STATUS_T appl_ecatCreateObjects(
         res = goal_ecatdynOdObjNameAdd(pHdlEcat, 0x1A00, "Transmit PDO Mapping Parameter 1");
     }
 
-    /************************************************/
-    /* 0x1A00:0x00 Number of Entries               */
-    /************************************************/
+    /* 0x1A00:0x00 Number of Entries = 3 */
     if (GOAL_RES_OK(res)) {
-
-        uint8ValueMin = 0x00;
-        uint8ValueDef = 0x01;
-        uint8ValueMax = 0xFF;
-
-        res = goal_ecatdynOdSubIndexAdd(
-            pHdlEcat,
-            0x1A00,
-            0x00,
-            GOAL_ECAT_DATATYPE_UNSIGNED8,
+        uint8ValueMin = 0x00; uint8ValueDef = 0x03; uint8ValueMax = 0xFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1A00, 0x00, GOAL_ECAT_DATATYPE_UNSIGNED8,
             EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC,
-            (uint8_t *) &uint8ValueDef,
-            (uint8_t *) &uint8ValueMin,
-            (uint8_t *) &uint8ValueMax,
-            1,
-            NULL);
+            (uint8_t *) &uint8ValueDef, (uint8_t *) &uint8ValueMin, (uint8_t *) &uint8ValueMax, 1, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1A00, 0x00, "Number of Entries"); }
 
+    /* 0x1A00:0x01 -> 0x6010:01 Input 1, 8 bit */
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1A00, 0x00, "Number of Entries");
+        uint32ValueMin = 0x00000000; uint32ValueDef = 0x60100108; uint32ValueMax = 0xFFFFFFFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1A00, 0x01, GOAL_ECAT_DATATYPE_UNSIGNED32,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint32ValueDef, (uint8_t *) &uint32ValueMin, (uint8_t *) &uint32ValueMax, 4, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1A00, 0x01, "Mapping Entry 1"); }
 
-    /************************************************/
-    /* 0x1A00:0x01 Mapping Entry 1                 */
-    /************************************************/
+    /* 0x1A00:0x02 -> 0x6010:02 Input 2, 8 bit */
     if (GOAL_RES_OK(res)) {
-
-        uint32ValueMin = 0x00000000;
-        uint32ValueDef = 0x00000000;
-        uint32ValueMax = 0xFFFFFFFF;
-
-        res = goal_ecatdynOdSubIndexAdd(
-            pHdlEcat,
-            0x1A00,
-            0x01,
-            GOAL_ECAT_DATATYPE_UNSIGNED32,
-            EC_OBJATTR_RD | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
-            (uint8_t *) &uint32ValueDef,
-            (uint8_t *) &uint32ValueMin,
-            (uint8_t *) &uint32ValueMax,
-            4,
-            NULL);
+        uint32ValueMin = 0x00000000; uint32ValueDef = 0x60100208; uint32ValueMax = 0xFFFFFFFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1A00, 0x02, GOAL_ECAT_DATATYPE_UNSIGNED32,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint32ValueDef, (uint8_t *) &uint32ValueMin, (uint8_t *) &uint32ValueMax, 4, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1A00, 0x02, "Mapping Entry 2"); }
 
+    /* 0x1A00:0x03 -> 0x6010:03 led, 8 bit */
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1A00, 0x01, "Mapping Entry 1");
+        uint32ValueMin = 0x00000000; uint32ValueDef = 0x60100308; uint32ValueMax = 0xFFFFFFFF;
+        res = goal_ecatdynOdSubIndexAdd(pHdlEcat, 0x1A00, 0x03, GOAL_ECAT_DATATYPE_UNSIGNED32,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint32ValueDef, (uint8_t *) &uint32ValueMin, (uint8_t *) &uint32ValueMax, 4, NULL);
     }
+    if (GOAL_RES_OK(res)) { res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x1A00, 0x03, "Mapping Entry 3"); }
 
     if (GOAL_RES_ERR(res)) {
         goal_logErr("failed to create object 0x1A00");
@@ -713,31 +687,31 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     }
 
     /************************************************/
-    /* 0x6000 - Input                               */
+    /* 0x6010 - Input                               */
     /************************************************/
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdObjAdd(pHdlEcat, 0x6000, GOAL_ECAT_OBJCODE_ARRAY, GOAL_ECAT_DATATYPE_UNSIGNED8);
+        res = goal_ecatdynOdObjAdd(pHdlEcat, 0x6010, GOAL_ECAT_OBJCODE_ARRAY, GOAL_ECAT_DATATYPE_UNSIGNED8);
     }
 
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdObjNameAdd(pHdlEcat, 0x6000, "Input");
+        res = goal_ecatdynOdObjNameAdd(pHdlEcat, 0x6010, "Input");
     }
 
     /************************************************/
-    /* 0x6000:0x00 Highest sub-index supported     */
+    /* 0x6010:0x00 Highest sub-index supported     */
     /************************************************/
     if (GOAL_RES_OK(res)) {
 
         uint8ValueMin = 0x00;
-        uint8ValueDef = 0x02;
+        uint8ValueDef = 0x03;
         uint8ValueMax = 0xFF;
 
         res = goal_ecatdynOdSubIndexAdd(
             pHdlEcat,
-            0x6000,
+            0x6010,
             0x00,
             GOAL_ECAT_DATATYPE_UNSIGNED8,
-            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC,
+            EC_OBJATTR_RD | EC_OBJATTR_MAN | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint8ValueDef,
             (uint8_t *) &uint8ValueMin,
             (uint8_t *) &uint8ValueMax,
@@ -746,11 +720,11 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     }
 
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x6000, 0x00, "Highest sub-index supported");
+        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x6010, 0x00, "Highest sub-index supported");
     }
 
     /************************************************/
-    /* 0x6000:0x01 Input 1                         */
+    /* 0x6010:0x01 Input 1                         */
     /************************************************/
     if (GOAL_RES_OK(res)) {
 
@@ -760,49 +734,75 @@ GOAL_STATUS_T appl_ecatCreateObjects(
 
         res = goal_ecatdynOdSubIndexAdd(
             pHdlEcat,
-            0x6000,
+            0x6010,
             0x01,
+            GOAL_ECAT_DATATYPE_UNSIGNED8,
+            EC_OBJATTR_RD_PREOP | EC_OBJATTR_RD_SAFEOP | EC_OBJATTR_RD_OP | EC_OBJATTR_WR_OP | EC_OBJATTR_TXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint8ValueDef,
+            (uint8_t *) &uint8ValueMin,
+            (uint8_t *) &uint8ValueMax,
+            1,
+            (uint8_t *) &di1_out);
+    }
+
+    if (GOAL_RES_OK(res)) {
+        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x6010, 0x01, "Input 1");
+    }
+
+    /************************************************/
+    /* 0x6010:0x02 Input 2                         */
+    /************************************************/
+    if (GOAL_RES_OK(res)) {
+
+        uint8ValueMin = 0x00;
+        uint8ValueDef = 0x00;
+        uint8ValueMax = 0xFF;
+
+        res = goal_ecatdynOdSubIndexAdd(
+            pHdlEcat,
+            0x6010,
+            0x02,
             GOAL_ECAT_DATATYPE_UNSIGNED8,
             EC_OBJATTR_RD | EC_OBJATTR_TXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint8ValueDef,
             (uint8_t *) &uint8ValueMin,
             (uint8_t *) &uint8ValueMax,
             1,
-            NULL);
+            (uint8_t *) &di2_out);
     }
 
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x6000, 0x01, "Input 1");
+        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x6010, 0x02, "Input 2");
     }
 
     /************************************************/
-    /* 0x6000:0x02 Input 2                         */
+    /* 0x6010:0x03 led                             */
     /************************************************/
     if (GOAL_RES_OK(res)) {
 
         uint8ValueMin = 0x00;
-        uint8ValueDef = 0x00;
+        uint8ValueDef = 0x01;
         uint8ValueMax = 0xFF;
 
         res = goal_ecatdynOdSubIndexAdd(
             pHdlEcat,
-            0x6000,
-            0x02,
+            0x6010,
+            0x03,
             GOAL_ECAT_DATATYPE_UNSIGNED8,
-            EC_OBJATTR_RD | EC_OBJATTR_TXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC,
+            EC_OBJATTR_RD | EC_OBJATTR_TXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint8ValueDef,
             (uint8_t *) &uint8ValueMin,
             (uint8_t *) &uint8ValueMax,
             1,
-            NULL);
+            (uint8_t *) &led_out);
     }
 
     if (GOAL_RES_OK(res)) {
-        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x6000, 0x02, "Input 2");
+        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x6010, 0x03, "led");
     }
 
     if (GOAL_RES_ERR(res)) {
-        goal_logErr("failed to create object 0x6000");
+        goal_logErr("failed to create object 0x6010");
     }
 
     /************************************************/
@@ -822,7 +822,7 @@ GOAL_STATUS_T appl_ecatCreateObjects(
     if (GOAL_RES_OK(res)) {
 
         uint8ValueMin = 0x00;
-        uint8ValueDef = 0x02;
+        uint8ValueDef = 0x03;
         uint8ValueMax = 0xFF;
 
         res = goal_ecatdynOdSubIndexAdd(
@@ -856,12 +856,12 @@ GOAL_STATUS_T appl_ecatCreateObjects(
             0x7000,
             0x01,
             GOAL_ECAT_DATATYPE_UNSIGNED8,
-            EC_OBJATTR_RD | EC_OBJATTR_WR | EC_OBJATTR_RXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC,
+            EC_OBJATTR_RD | EC_OBJATTR_WR | EC_OBJATTR_RXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint8ValueDef,
             (uint8_t *) &uint8ValueMin,
             (uint8_t *) &uint8ValueMax,
             1,
-            NULL);
+            (uint8_t *) &di1_in);
     }
 
     if (GOAL_RES_OK(res)) {
@@ -882,16 +882,42 @@ GOAL_STATUS_T appl_ecatCreateObjects(
             0x7000,
             0x02,
             GOAL_ECAT_DATATYPE_UNSIGNED8,
-            EC_OBJATTR_RD | EC_OBJATTR_WR | EC_OBJATTR_RXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC,
+            EC_OBJATTR_RD | EC_OBJATTR_WR | EC_OBJATTR_RXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
             (uint8_t *) &uint8ValueDef,
             (uint8_t *) &uint8ValueMin,
             (uint8_t *) &uint8ValueMax,
             1,
-            NULL);
+            (uint8_t *) &di2_in);
     }
 
     if (GOAL_RES_OK(res)) {
         res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x7000, 0x02, "Output 2");
+    }
+
+    /************************************************/
+    /* 0x7000:0x03 led                             */
+    /************************************************/
+    if (GOAL_RES_OK(res)) {
+
+        uint8ValueMin = 0x00;
+        uint8ValueDef = 0x01;
+        uint8ValueMax = 0xFF;
+
+        res = goal_ecatdynOdSubIndexAdd(
+            pHdlEcat,
+            0x7000,
+            0x03,
+            GOAL_ECAT_DATATYPE_UNSIGNED8,
+            EC_OBJATTR_RD | EC_OBJATTR_WR | EC_OBJATTR_RXPDOMAPPING | EC_OBJATTR_OPT | EC_OBJATTR_NUMERIC | EC_OBJATTR_NO_LIMITS,
+            (uint8_t *) &uint8ValueDef,
+            (uint8_t *) &uint8ValueMin,
+            (uint8_t *) &uint8ValueMax,
+            1,
+            (uint8_t *) &led_in);
+    }
+
+    if (GOAL_RES_OK(res)) {
+        res = goal_ecatdynOdSubIndexNameAdd(pHdlEcat, 0x7000, 0x03, "led");
     }
 
     if (GOAL_RES_ERR(res)) {

@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "EEPROM_WRITER",
+			"path": "rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/EEPROM_WRITER"
+		},
+		{
+			"name": "M7FOLLOWER",
+			"path": "rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER"
+		},
+		{
+			"name": "M33LEADER",
+			"path": "rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/M33LEADER"
+		},
+		{
+			"name": "riop_ECAT_M33LEADER",
+			"path": "rd-riop-ecat-1.5.0/riop_ECAT/M33LEADER"
+		},
+		{
+			"name": "riop_ECAT_M7FOLLOWER",
+			"path": "rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER"
+		},
+		{
+			"name": "riop_ECAT_EEPROM_WRITER",
+			"path": "rd-riop-ecat-1.5.0/riop_ECAT/EEPROM_WRITER"
+		}
+	],
+	"settings": {}
+}

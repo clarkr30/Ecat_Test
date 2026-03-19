@@ -10,12 +10,12 @@
       "hidden": true,
       "environment": {
         "ARMGCC_DIR": "C:/NXP/MCUXpressoIDE_25.6.136/ide/tools",
-        "SdkRootDirPath": "c:/w/SDK/MCUXpresso/v25.09.00",
+        "SdkRootDirPath": "c:/Projects/riop-ecat/mcuxsdk",
         "BOARD": "evkmimxrt1180",
         "MCUX_VENV_PATH": "C:/Users/nxg16113/.mcuxpressotools/.venv/Scripts",
         "CORE_ID": "cm33",
         "PATH": "$env{MCUX_VENV_PATH}${pathListSep}$penv{PATH}",
-        "POSTPROCESS_UTILITY": "",
+        "POSTPROCESS_UTILITY": "C:/Users/clarkr/.mcuxpressotools/mcux-fixelf-14.2.2/mcux-fixelf.exe",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
       "cacheVariables": {}
@@ -26,12 +26,12 @@
       "hidden": true,
       "environment": {
         "ARMGCC_DIR": "C:/NXP/MCUXpressoIDE_25.6.136/ide/tools",
-        "SdkRootDirPath": "c:/w/SDK/MCUXpresso/v25.09.00",
+        "SdkRootDirPath": "c:/Projects/riop-ecat/mcuxsdk",
         "BOARD": "evkmimxrt1180",
         "MCUX_VENV_PATH": "",
         "CORE_ID": "cm33",
         "PATH": "$env{MCUX_VENV_PATH}${pathListSep}$penv{PATH}",
-        "POSTPROCESS_UTILITY": "",
+        "POSTPROCESS_UTILITY": "C:/Users/clarkr/.mcuxpressotools/mcux-fixelf-14.2.2/mcux-fixelf.exe",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
       "cacheVariables": {}
@@ -42,12 +42,12 @@
       "hidden": true,
       "environment": {
         "ARMGCC_DIR": "C:/NXP/MCUXpressoIDE_25.6.136/ide/tools",
-        "SdkRootDirPath": "c:/w/SDK/MCUXpresso/v25.09.00",
+        "SdkRootDirPath": "c:/Projects/riop-ecat/mcuxsdk",
         "BOARD": "evkmimxrt1180",
         "MCUX_VENV_PATH": "",
         "CORE_ID": "cm33",
         "PATH": "$env{MCUX_VENV_PATH}${pathListSep}$penv{PATH}",
-        "POSTPROCESS_UTILITY": "",
+        "POSTPROCESS_UTILITY": "C:/Users/clarkr/.mcuxpressotools/mcux-fixelf-14.2.2/mcux-fixelf.exe",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
       "cacheVariables": {}
@@ -58,12 +58,12 @@
       "hidden": true,
       "environment": {
         "ARMGCC_DIR": "C:/NXP/MCUXpressoIDE_25.6.136/ide/tools",
-        "SdkRootDirPath": "c:/w/SDK/MCUXpresso/v25.09.00",
+        "SdkRootDirPath": "c:/Projects/riop-ecat/mcuxsdk",
         "BOARD": "evkmimxrt1180",
         "MCUX_VENV_PATH": "C:/Users/nxg16113/.mcuxpressotools/.venv/Scripts",
         "CORE_ID": "cm33",
         "PATH": "$env{MCUX_VENV_PATH}${pathListSep}$penv{PATH}",
-        "POSTPROCESS_UTILITY": "",
+        "POSTPROCESS_UTILITY": "C:/Users/clarkr/.mcuxpressotools/mcux-fixelf-14.2.2/mcux-fixelf.exe",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
       "cacheVariables": {}

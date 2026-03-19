@@ -4,141 +4,114 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-EtherCAT slave firmware for the **MIMXRT1189 EVK** (NXP i.MX RT1100, dual-core ARM Cortex-M33 + M7). Uses NXP's **GOAL framework** (Generic Object Abstraction Layer) to implement an EtherCAT slave with 2 TxPDO inputs (slave→master) and 2 RxPDO outputs (master→slave).
+EtherCAT slave application for NXP MIMXRT1189 EVK (dual-core: Cortex-M33 + Cortex-M7). The goal is a slave device with 2 digital outputs (TwinCAT→GPIO pins) and 2 digital inputs (GPIO pins→TwinCAT) that reaches OP state.
 
-The `GOAL/` directory contains **ICC-generated files** (NXP Industrial Communication Creator output) — treat these as the source of truth for the EtherCAT object dictionary. The reference application lives in `OLD/rd-riop-ecat-1.5.0/riop_ECAT/`.
+The application uses GOAL (Generic Object Abstraction Layer) EtherCAT stack from port GmbH, accessed as a pre-built RPC library (`goal_ecat_rpc_lib`). The M33 runs the EtherCAT/network stack; the M7 handles I/O and communicates with M33 via shared memory.
 
 ## Build System
 
-**Toolchain:** ARM GCC via CMake + Ninja. Requires `SdkRootDirPath` environment variable pointing to `mcuxsdk/mcuxsdk/`.
+CMake with Ninja, ARM GCC toolchain, MCUXpresso SDK v25.09.00.
 
-**Primary IDE:** VS Code with MCUXpresso for VS Code extension (v25.03+).
-
-### Build commands (M7FOLLOWER — main application)
+**Build order is critical — M7FOLLOWER must be built before M33LEADER.** M33LEADER embeds the M7 binary (`core1_image.bin`) at link time. Building only M33 will silently use the old M7 binary.
 
 ```bash
-cd OLD/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER
+# From MCUXpresso VS Code extension, or directly:
+# 1. Build M7FOLLOWER
+cd rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER
+cmake --preset debug
+cmake --build build/debug
 
-export SdkRootDirPath=/c/Projects/ICCTest/mcuxsdk/mcuxsdk
-export BOARD=evkmimxrt1180
-export CORE_ID=m7
+# 2. Build M33LEADER (embeds M7 binary)
+cd ../M33LEADER
+cmake --preset debug
+cmake --build build/debug
 
-cmake --preset=debug
-cmake --build --preset=debug
+# 3. Flash M33LEADER only (it contains both cores)
 ```
 
-Output binary: `OLD/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/debug/riop_ECAT_M7FOLLOWER.elf`
+Build presets (`debug`, `release`, `flexspi_nor_debug`, `flexspi_nor_release`) are defined in `CMakePresets.json` in each project directory. SDK path is configured in `mcux_include.json` (`c:/w/SDK/MCUXpresso/v25.09.00`).
 
-### Build order matters
-
-1. **EEPROM_WRITER** — run once on new hardware to program ESC EEPROM
-2. **M33LEADER** — must be flashed first; initializes hardware and starts the M7 core
-3. **M7FOLLOWER** — main EtherCAT application
+There is also an EEPROM_WRITER project (`riop_ECAT/EEPROM_WRITER/`) that must be built and flashed separately when restoring or updating EEPROM.
 
 ## Architecture
 
-### Dual-core split
+### Multi-core split
+- **M33LEADER** (`riop_ECAT/M33LEADER/`): EtherCAT master stack, lwIP networking, EEPROM identity, flash management
+- **M7FOLLOWER** (`riop_ECAT/M7FOLLOWER/`): AFE task (NAFE13388 ADC), GPIO task, signal generator, ICC task, digital I/O
 
-| Core | Project | Role |
-|------|---------|------|
-| Cortex-M33 | `M33LEADER/` | Boot, hardware init, clock config, starts M7 |
-| Cortex-M7 | `M7FOLLOWER/` | FreeRTOS, GOAL stack, EtherCAT PDO loop |
+### Application files to modify
+All EtherCAT application logic lives in:
+```
+rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/appl/goal_ecat/riop/
+```
+Key files:
+- `goal_appl_ecat_objects.c/.h` — CoE object dictionary (0x1000, 0x1018, PDO objects 0x6000/0x7000, mapping 0x1600/0x1A00)
+- `goal_appl_ecat.c` — SDO/PDO callbacks: `appl_ecatPdoReceived`, `appl_ecatPdoTxPrepare`, `appl_ecatSdoUpload`, `appl_ecatSdoDownload`
+- `goal_appl.c` — Top-level GOAL stack initialization
 
-The PDO callbacks run on the M33 (network core). To touch hardware from a PDO callback, pack the value into a command struct and send it to the M7 (I/O core) via RPMsg. The M7 runs a FreeRTOS task that dequeues the command and calls the GPIO/peripheral driver.
+The `glue/` directory at repo root contains in-progress versions of these files (the custom 2-DI/2-DO target application).
 
-### M7FOLLOWER application structure (`source/`)
+### ICC Tool Directories
 
-- `icc_task/` — EtherCAT / GOAL stack task
-- `afe_task/` — NAFE13388 analog front-end (ADC, current/voltage/temperature)
-- `gpio_task/` — GPIO and LED control
-- `SIGGEN_task/` — Signal generator
-- `appl/goal_ecat/riop/` — ICC-generated GOAL files (object dictionary, callbacks)
+Two ICC (Industrial Communication Creator) tool project directories exist at the repo root:
 
-### EtherCAT object dictionary (ICC-generated)
+- **`glue/`** — Custom ICC project (`ICCTest.iccproj`) for the 2-DI/2-DO target device. Generated files here are candidates to copy into `M7FOLLOWER/source/appl/goal_ecat/riop/`. Note: this project had warnings ("No CPU family set", "No EEPROM set") on last generation.
+- **`RIOP-ECAT-APP-GLUE-V1.5.0/`** — NXP-provided ICC project (`ecat_io.iccproj`) representing the full RIOP platform (32 DI channels + 16 ADC channels). Useful as a reference for how NXP structures large object dictionaries. **Do not use its `ecat_conf.h`** — it has incorrect SM addresses (SM0@0x1000/SM1@0x1400/SM2@0x1800) for the goal_ecat_rpc_lib build.
 
-| Object | Type | Direction | Purpose |
-|--------|------|-----------|---------|
-| 0x6000 | ARRAY (2 sub-indices) | TxPDO (slave→master) | Input values (ADC) |
-| 0x7000 | ARRAY (2 sub-indices) | RxPDO (master→slave) | Control signals (LED/GPIO) |
-| 0x1A00 | PDO mapping | — | TxPDO map → 0x6000:01, 0x6000:02 |
-| 0x1600 | PDO mapping | — | RxPDO map → 0x7000:01, 0x7000:02 |
+When the ICC tool generates code for `glue/`, the output files (`ecat_conf.h`, `goal_appl_ecat_objects.c/.h`, etc.) must be reviewed before copying to the firmware — in particular, `ecat_conf.h` must always be replaced with the CC library reference version.
 
-Objects use **Managed Variables** — the GOAL stack owns storage; use the generated API to read/write them. ARRAY was chosen over RECORD because ICC locks sub-index count on RECORD types.
+### EEPROM
+`riop_ECAT/EEPROM_WRITER/source/ecat_io_eeprom.h` — defines the SII binary embedded in EEPROM_WRITER firmware.
 
-### Key ICC-generated files
+## Critical EtherCAT Constraints
 
-- `GOAL/goal_appl_ecat_objects.c/.h` — Object dictionary definitions and `appl_ecatCreateObjects()`
-- `GOAL/goal_appl_ecat.c/.h` — EtherCAT callbacks; **PDO exchange logic goes here**
-- `GOAL/goal_appl.c` — Top-level GOAL app init (preserve any extra init from example project when merging)
-- `GOAL/ecat_conf.h` — EtherCAT stack compile-time configuration
-- `GOAL/ICCTest_ESI.xml` — EtherCAT Slave Information file for TwinCAT import
+### SM addresses (for this pre-built CC library build)
+These are fixed by the GOAL RPC library — do NOT use ICC-generated or guessed values:
+- SM0 (MBoxOut): addr=`0x1000`, size=`0x0080`
+- SM1 (MBoxIn):  addr=`0x1080`, size=`0x0080`
+- SM2 (RxPDO):   addr=`0x1100`, size=5 bytes
+- SM3 (TxPDO):   addr=`0x1400`, size=5 bytes
 
-## How GOAL EtherCAT wiring works
+### ecat_conf.h
+Always use the CC library reference version from:
+```
+rd-riop-ecat-1.5.0/goal/projects/goal_ecat_rpc_lib/00_cc/edt/nxp/evkmimxrt1180/ecat_conf.h
+```
+**Never replace this with an ICC-generated `ecat_conf.h`** — ICC generates wrong SM addresses and omits required defines for the RPC build.
 
-GOAL abstracts the EtherCAT stack — you never write protocol code. The pattern is:
+### EEPROM SII SM section
+The EEPROM has two places for mailbox SM addresses. TwinCAT uses the **SII SM category section** (around offset `0xD0+`), not just bytes 40-47. Both must be consistent and must match the SM addresses above.
 
-**Step 1 — Declare C variables** (one per PDO entry):
-```c
-uint8_t my_output_1;   // master writes this (RxPDO, 0x7000 range)
-uint8_t my_input_1;    // master reads this  (TxPDO, 0x6000 range)
+### 0x1018 identity vs EEPROM
+The GOAL stack checks `0x1018` (VendorId/ProductCode/RevisionNo) against the EEPROM SII during INIT→PREOP. A mismatch causes silent rejection (no AL status error code).
+
+### FoE callback
+`goal_appl_foe.c` is not compiled in M7FOLLOWER's CMakeLists.txt. If using `04_led_button_eoe` as a reference, remove or stub `appl_ecatFoeCallback`.
+
+## Serial / Debugging
+
+Only COM7 (CH340 USB-Serial) is available — this is M33 UART only. M7 has no visible serial output.
+
+Normal startup output (does not confirm M7 is working):
+```
+Start the digital_io example. (ETHERCAT) [timestamp]
+Secondary Core Started...
+RIOP Application Initialization..
 ```
 
-**Step 2 — Register them in `appl_ecatCreateObjects()`:**
-```c
-goal_ecatdynOdSubIndexAdd(
-    pHdlEcat,
-    0x7000,                          // index (RxPDO: 0x7000+, TxPDO: 0x6000+)
-    0x01,                            // sub-index (0x00 = count, data starts at 0x01)
-    GOAL_ECAT_DATATYPE_UNSIGNED8,
-    EC_OBJATTR_RD | EC_OBJATTR_WR | EC_OBJATTR_RXPDOMAPPING | ...,
-    &defaultVal, &minVal, &maxVal,
-    1,                               // size in bytes
-    (uint8_t *) &my_output_1);       // pointer binding — only link between index and memory
-```
+`AL Status Code 0x0000` in TwinCAT with INIT→PREOP timeout means TwinCAT timed out, not that the slave reported clean — the slave (usually M7) simply never responded.
 
-**Step 3 — Act in PDO callbacks in `appl_ecatCallback()`:**
-```c
-// Fires after stack writes new master→slave data into RxPDO variables
-static void appl_ecatPdoReceived(GOAL_ECAT_T *pHdlEcat) {
-    if (my_output_1) { /* drive hardware / send RPMsg to M7 */ }
-}
+## Reference Example
 
-// Fires before stack sends slave→master data; populate TxPDO variables here
-static void appl_ecatPdoTxPrepare(GOAL_ECAT_T *pHdlEcat) {
-    my_input_1 = read_my_sensor();
-}
-```
+`rd-riop-ecat-1.5.0/goal/appl/goal_ecat/04_led_button_eoe/` is the working reference for LED/button PDO mapping. Use as base for new PDO objects — but exclude `goal_appl_foe.c`.
 
-**Naming trap:** EtherCAT names things from the slave's perspective.
-- RxPDO = *received by slave* = master is writing = your **outputs**
-- TxPDO = *transmitted by slave* = master is reading = your **inputs**
-- TwinCAT shows these flipped in its process image.
+The original unmodified `rd-riop-ecat-1.5.0` example reaches OP with TwinCAT. When in doubt, revert to it and confirm OP before making changes.
 
-**Index/sub-index conventions:**
+## Device Identity
 
-| Range | Conventional use |
-|-------|-----------------|
-| 0x6000–0x6FFF | TxPDO-mappable objects (slave inputs → master reads) |
-| 0x7000–0x7FFF | RxPDO-mappable objects (slave outputs ← master writes) |
-| 0x1600–0x17FF | RxPDO mapping objects |
-| 0x1A00–0x1BFF | TxPDO mapping objects |
+FACTS Engineering LLC device:
+- VendorId: `0xE778` (59256)
+- ProductCode: `0x0001`
+- RevisionNo: `0x0011`
 
-## Integration Plan
-
-The ICC-generated files in `GOAL/` are **unmodified originals** that need to be merged into the example project:
-1. Copy the example RIOP project into this directory
-2. Remove conflicting build/source files from the example
-3. Apply ICC-generated files on top
-4. Preserve any extra initialization in the example's `goal_appl.c` (networking, device detection) — do not blindly overwrite
-
-## Pending code changes (not yet applied)
-
-In `GOAL/goal_appl_ecat.c`, in the cyclic PDO callbacks:
-- `appl_ecatPdoTxPrepare`: write a dummy counter or ADC value to `0x6000:01` / `0x6000:02`
-- `appl_ecatPdoReceived`: read `0x7000:01` / `0x7000:02` and toggle an onboard LED/GPIO (via RPMsg to M7)
-
-## Hardware / Deployment notes
-
-- **Vendor ID** must match in both `ICCTest_ESI.xml` and the ESC EEPROM — changing it in ICC only updates the ESI; reprogram EEPROM with EEPROM_WRITER afterward
-- **TwinCAT setup:** Import `ICCTest_ESI.xml` into TwinCAT *before* scanning for the slave; verify SM2 (RxPDO) and SM3 (TxPDO) assignments match the PDO mapping objects
-- TwinCAT has known issues on Windows 11 — contact Beckhoff for support
+Original NXP values (simpler baseline): ProductCode=`0x67`, RevisionNo=`0x68`

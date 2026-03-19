@@ -8,7 +8,15 @@
       "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(p.get\\(''''name''''\\), p.get\\(''''binaryDir'''',''''''''\\)\\) for p in d.get\\(''''buildPresets'''', d.get\\(''''configurePresets'''',[]\\)\\)]\")",
       "Bash(export SdkRootDirPath=/c/Projects/ICCTest/mcuxsdk)",
       "Bash(cmake --build --preset=flexspi_nor_debug)",
-      "Bash(find . -maxdepth 2 -type f -name *.md -o -name *.json -o -name *.csproj -o -name *.sln)"
+      "Bash(find . -maxdepth 2 -type f -name *.md -o -name *.json -o -name *.csproj -o -name *.sln)",
+      "Bash(powershell -Command \"Copy-Item ''c:\\\\Projects\\\\ICCTest\\\\rd-riop-ecat-1.5.0\\\\riop_ECAT\\\\M7FOLLOWER\\\\source\\\\appl\\\\goal_ecat\\\\riop\\\\ICCTest_ESI.xml'' ''C:\\\\Program Files \\(x86\\)\\\\Beckhoff\\\\TwinCAT\\\\3.1\\\\Config\\\\Io\\\\EtherCAT\\\\ICCTest_ESI.xml''\")",
+      "Bash(grep -rn \"GOAL_CONFIG_MCTC\\\\|appl_setup\\\\|appl_init\\\\|goal_mainLoop\" c:/Projects/ICCTest/rd-riop-ecat-1.5.0/goal/projects/goal_ecat_rpc_lib/ --include=*.c --include=*.h -l)",
+      "Bash(find c:/Projects/ICCTest/rd-riop-ecat-1.5.0/goal/ -name goal_main*.c)",
+      "Bash(cp \"c:/Projects/ICCTest/glue/goal_appl.c\" \"c:/Projects/ICCTest/rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/appl/goal_ecat/riop/\")",
+      "Bash(cp \"c:/Projects/ICCTest/glue/goal_appl.h\" \"c:/Projects/ICCTest/rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/appl/goal_ecat/riop/\")",
+      "Bash(cp \"c:/Projects/ICCTest/glue/goal_appl_ecat.c\" \"c:/Projects/ICCTest/rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/appl/goal_ecat/riop/\")",
+      "Bash(cp \"c:/Projects/ICCTest/glue/goal_appl_ecat.h\" \"c:/Projects/ICCTest/rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/appl/goal_ecat/riop/\")",
+      "Bash(cp \"c:/Projects/ICCTest/glue/goal_appl_ecat_objects.c\" \"c:/Projects/ICCTest/rd-riop-ecat-1.5.0/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/source/appl/goal_ecat/riop/\")"
     ]
   }
 }

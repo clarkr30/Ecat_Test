@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "components/srtm/services",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/components/srtm/services"
+	}
+}

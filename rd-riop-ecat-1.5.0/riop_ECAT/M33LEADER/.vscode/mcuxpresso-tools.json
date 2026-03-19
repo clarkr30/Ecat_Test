@@ -7,8 +7,8 @@
   "projectType": "sdk-v2-freestanding",
   "projectName": "riop_ECAT_M33LEADER",
   "sdk": {
-    "path": "c:\\w\\SDK\\MCUXpresso\\v25.09.00",
-    "version": "25.9.0",
+    "path": "c:\\Projects\\riop-ecat\\mcuxsdk",
+    "version": "26.3.0",
     "boardId": "evkmimxrt1180",
     "deviceId": "MIMXRT1189xxxxx",
     "coreId": "cm33",

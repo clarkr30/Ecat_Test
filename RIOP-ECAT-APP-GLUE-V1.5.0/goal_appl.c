@@ -2,21 +2,12 @@
  *
  * @brief EtherCAT demo
  *
- * This application provides a RIOP digital_io demo for the EtherCAT stack.
+ * This application provides a simple demo for the EtherCAT stack.
  *
  * @copyright
- * Copyright 2010-2025.
+ * Copyright 2010-2026.
  * This software is protected Intellectual Property and may only be used
  * according to the license agreement.
- *
- * Copyright 2025 NXP
- * NXP Confidential and Proprietary. This software is owned or controlled by NXP
- * and may only be used strictly in accordance with the applicable license
- * terms. By expressly accepting such terms or by downloading, installing,
- * activating and/or otherwise using the software, you are agreeing that you
- * have read, and that you agree to comply with and are bound by, such license
- * terms. If you do not agree to be bound by the applicable license terms, then
- * you may not retain, install, activate or otherwise use the software.
  */
 
 
@@ -24,7 +15,6 @@
 #include "goal_ecat.h"
 #include "goal_appl_ecat.h"
 #include "goal_appl_ecat_objects.h"
-#include <goal_dd.h>
 
 
 /****************************************************************************/
@@ -38,9 +28,6 @@
 /****************************************************************************/
 static GOAL_ECAT_T *pHdlEcat;                   /**< GOAL EtherCAT handle */
 
-#if RIOP
-extern int riop_appl_init(void);
-#endif
 
 /****************************************************************************/
 /** Application initialization
@@ -54,19 +41,6 @@ GOAL_STATUS_T appl_init(
 )
 {
     GOAL_STATUS_T res;                          /* result */
-
-#if RIOP
-    riop_appl_init();
-#endif
-
-#if !RIOP
-    /* initialize device detection module */
-    res = goal_ddInit();
-    if (GOAL_RES_ERR(res)) {
-        goal_logErr("Initialization of GOAL dd failed");
-        return res;
-    }
-#endif
 
     res = goal_ecatInit();
     if (GOAL_RES_ERR(res)) {
@@ -88,17 +62,6 @@ GOAL_STATUS_T appl_setup(
 {
     GOAL_STATUS_T res;                          /* result */
 
-#if !RIOP
-    GOAL_DD_T *pHdlDd;                          /* DD handle */
-
-    /* start goal dd with all features enabled */
-    res = goal_ddNew(&pHdlDd, GOAL_DD_FEAT_ALL);
-    if (GOAL_RES_ERR(res)) {
-        goal_logErr("error creating goal dd instance");
-        return res;
-    }
-#endif
-
     /* enable CoE emergency */
     res = goal_ecatCfgEmergencyOn(GOAL_TRUE);
     if (GOAL_RES_ERR(res)) {
@@ -112,15 +75,6 @@ GOAL_STATUS_T appl_setup(
         goal_logErr("failed to set CoE Emergency Queue size to 8");
         return res;
     }
-
-#if !RIOP
-    /* enable FoE */
-    res = goal_ecatCfgFoeOn(GOAL_TRUE);
-    if (GOAL_RES_ERR(res)) {
-        goal_logErr("failed to enable FoE support");
-        return res;
-    }
-#endif
 
     /* enable BOOTSTRAP state */
     res = goal_ecatCfgBootstrapOn(GOAL_TRUE);

@@ -22,6 +22,7 @@
 #include "goal_ecat.h"
 #include "goal_appl_ecat.h"
 #include "goal_appl_ecat_objects.h"
+#include "gl.h"
 
 
 /****************************************************************************/
@@ -265,8 +266,15 @@ static void appl_ecatPdoReceived(
 {
     UNUSEDARG(pHdlEcat);
 
-    /* nothing todo */
+    fsm_mode = 5;   /* MCU output mode: 20ms dispatch, mcu_digital_output_command always dirty */
 
+    uint8_t *pii = &riop_command.mcu_digital_output_command.mcu_digital_output;
+#define ATOMIC_OP(var, XXX) if(var) *pii|=(uint8_t)XXX; else *pii&=~(uint8_t)XXX
+    ATOMIC_OP(di1_in, 0x01);   /* di1_in -> DIGITAL_OUTPUT_01 (RGPIO2 pin 21) */
+    ATOMIC_OP(di2_in, 0x02);   /* di2_in -> DIGITAL_OUTPUT_02 (RGPIO2 pin 22) */
+#undef ATOMIC_OP
+    LED_status = led_in;
+    led_green = LED_status;
 }
 
 
@@ -283,8 +291,13 @@ static void appl_ecatPdoTxPrepare(
 {
     UNUSEDARG(pHdlEcat);
 
-    /* nothing to do */
+    uint8_t *pii = &g_boardStatus.mcu_digital_input_pins_status;
+#define ATOMIC_OP(var, XXX) if(*pii&(uint8_t)XXX) var=1; else var=0
+    ATOMIC_OP(di1_out, 0x01);  /* DIGITAL_INPUT_01 (RGPIO6 pin 12) -> di1_out */
+    ATOMIC_OP(di2_out, 0x02);  /* DIGITAL_INPUT_02 (RGPIO6 pin 8)  -> di2_out */
+#undef ATOMIC_OP
 
+    led_out = LED_status;
 }
 
 

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "components/imu_adapter",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/components/imu_adapter"
+	}
+}

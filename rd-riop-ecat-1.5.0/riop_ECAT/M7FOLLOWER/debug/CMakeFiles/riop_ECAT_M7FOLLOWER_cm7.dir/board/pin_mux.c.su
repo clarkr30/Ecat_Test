@@ -1,0 +1,5 @@
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/devices/RT/RT1180/MIMXRT1189/drivers/fsl_clock.h:1581:20:CLOCK_ControlGate	16	static
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/devices/RT/RT1180/MIMXRT1189/drivers/fsl_clock.h:1599:20:CLOCK_EnableClock	16	static
+C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/devices/RT/RT1180/MIMXRT1189/drivers/fsl_iomuxc.h:1880:20:IOMUXC_SetPinMux	24	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/board/pin_mux.c:35:6:BOARD_InitBootPins	8	static
+C:/Projects/ICCTest/rd-riop-ecat-1.5.0/riop_ECAT/M7FOLLOWER/board/pin_mux.c:56:6:BOARD_InitPins	16	static

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/tmu_3",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/tmu_3"
+	}
+}

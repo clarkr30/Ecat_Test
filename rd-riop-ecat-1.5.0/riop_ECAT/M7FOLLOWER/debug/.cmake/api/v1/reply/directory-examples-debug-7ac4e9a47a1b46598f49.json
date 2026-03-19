@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "examples",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/examples"
+	}
+}

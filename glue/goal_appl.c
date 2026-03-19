@@ -27,13 +27,14 @@
 /****************************************************************************/
 /* Local defines */
 /****************************************************************************/
-#define APPL_ECAT_PDO_BUF_SIZE 0               /**< PDO buffer size */
+#define APPL_ECAT_PDO_BUF_SIZE 8               /**< PDO buffer size */
 
 
 /****************************************************************************/
 /* Local Prototypes */
 /****************************************************************************/
 static GOAL_ECAT_T *pHdlEcat;                   /**< GOAL EtherCAT handle */
+extern int riop_appl_init(void);
 
 
 /****************************************************************************/
@@ -48,6 +49,8 @@ GOAL_STATUS_T appl_init(
 )
 {
     GOAL_STATUS_T res;                          /* result */
+
+    riop_appl_init();
 
     res = goal_ecatInit();
     if (GOAL_RES_ERR(res)) {
@@ -80,6 +83,13 @@ GOAL_STATUS_T appl_setup(
     res = goal_ecatCfgEmergencyQueueNum(8);
     if (GOAL_RES_ERR(res)) {
         goal_logErr("failed to set CoE Emergency Queue size to 8");
+        return res;
+    }
+
+    /* enable BOOTSTRAP state */
+    res = goal_ecatCfgBootstrapOn(GOAL_TRUE);
+    if (GOAL_RES_ERR(res)) {
+        goal_logErr("failed to enable BOOTSTRAP support");
         return res;
     }
 

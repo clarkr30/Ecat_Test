@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/lin",
+		"source" : "C:/Projects/riop-ecat/mcuxsdk/mcuxsdk/drivers/lin"
+	}
+}
